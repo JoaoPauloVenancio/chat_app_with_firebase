@@ -1,11 +1,14 @@
 package com.example.chatappwithfirebase.models
 
-import java.util.Date
+import java.util.*
 
 data class ChatMessage(
-    val senderId: String,
-    val receiverId: String,
-    val message: String,
-    val dateTime: String,
-    val dateObject: Date
+    var senderId: String? = null,
+    var receiverId: String? = null,
+    var message: String? = null,
+    var dateTime: String? = null,
+    var dateObject: Date? = null,
+    var conversionId: String? = null,
+    var conversionName: String? = null,
+    var conversionImage: String? = null,
 )
