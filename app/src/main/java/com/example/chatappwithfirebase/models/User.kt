@@ -3,9 +3,9 @@ package com.example.chatappwithfirebase.models
 import java.io.Serializable
 
 data class User(
-    val name: String? = null,
-    val image: String? = null,
-    val email: String? = null,
-    val token: String? = null,
-    val id: String? = null,
+    var name: String? = null,
+    var image: String? = null,
+    var email: String? = null,
+    var token: String? = null,
+    var id: String? = null,
 ): Serializable

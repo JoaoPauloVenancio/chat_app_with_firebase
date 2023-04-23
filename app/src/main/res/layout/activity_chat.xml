@@ -74,19 +74,6 @@
         android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintTop_toBottomOf="@id/imageBack"/>
     
-    <TextView
-        android:id="@+id/textAvailability"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/viewSupporter"
-        android:background="@color/green"
-        android:textSize="@dimen/_10ssp"
-        android:text="@string/online"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        android:padding="@dimen/_2sdp"/>
-    
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
@@ -99,7 +86,7 @@
         app:stackFromEnd="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@id/viewBackground"
-        app:layout_constraintTop_toBottomOf="@id/textAvailability"/>
+        app:layout_constraintTop_toBottomOf="@id/viewSupporter"/>
 
     <ProgressBar
         android:id="@+id/progressBarChat"
@@ -149,5 +136,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/layoutSend"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textAvailability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/viewSupporter"
+        android:background="@color/green"
+        android:textSize="@dimen/_10ssp"
+        android:text="@string/online"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:padding="@dimen/_2sdp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,3 +23,18 @@ const val KEY_SENDER_IMAGE = "senderImage"
 const val KEY_RECEIVER_IMAGE = "receiverImage"
 const val KEY_LAST_MESSAGE = "lastMessage"
 const val KEY_AVAILABILITY = "availability"
+const val REMOTE_MSG_AUTHORIZATION = "Authorization"
+const val REMOTE_MSG_CONTENT_TYPE = "Content-Type"
+const val REMOTE_MSG_DATA = "data"
+const val REMOTE_MSG_REGISTRATION_IDS = "registration_ids"
+
+var remoteMsgHeaders: HashMap<String, String>? = null
+
+fun getRemoteHeaders(): HashMap<String, String> {
+    if(remoteMsgHeaders == null) {
+        remoteMsgHeaders = HashMap()
+        remoteMsgHeaders!![REMOTE_MSG_AUTHORIZATION] = "key=AAAAVotc33M:APA91bHGzEBQniTex0A7Rb6zdgpfGYv1V1cO8wLK9o_WubMOaBQzH5-2cWNDuAv2nC7wSDitrR1OzE6blH6QSh0xN4OyFOLHhwkou42sSj_vlXTtf8BHdkJVlgAp4UsbyLUiV02QtpIW"
+        remoteMsgHeaders!![REMOTE_MSG_CONTENT_TYPE] = "application/json"
+    }
+    return remoteMsgHeaders as HashMap<String, String>
+}

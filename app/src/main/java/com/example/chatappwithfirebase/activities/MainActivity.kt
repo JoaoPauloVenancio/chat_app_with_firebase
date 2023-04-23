@@ -129,6 +129,7 @@ class MainActivity : BaseActivity(), RecentConversationsAdapter.RecentConversati
     }
 
     private fun updateToken(token: String) {
+        preferenceManager.putString(KEY_FCM_TOKEN, token)
         val database = FirebaseFirestore.getInstance()
         val documentReference = preferenceManager.getString(KEY_USER_ID)?.let {
             database.collection(KEY_COLLECTIONS_USERS).document(

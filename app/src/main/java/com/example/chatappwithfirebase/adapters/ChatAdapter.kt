@@ -19,6 +19,10 @@ class ChatAdapter(
     var senderId: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    fun setReceiverImage(bitmap: Bitmap) {
+        receiverProfileImage = bitmap
+    }
+
     inner class SentMessageViewHolder(private val binding: ItemContainerSentMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -34,9 +38,11 @@ class ChatAdapter(
         fun bind(chat: ChatMessage, receiverProfileImage: Bitmap) {
             binding.textMessage.text = chat.message
             binding.textDateTime.text = chat.dateTime
-            binding.imageProfile.load(receiverProfileImage) {
-                crossfade(true)
-                transformations(CircleCropTransformation())
+            if (receiverProfileImage != null) {
+                binding.imageProfile.load(receiverProfileImage) {
+                    crossfade(true)
+                    transformations(CircleCropTransformation())
+                }
             }
         }
     }
