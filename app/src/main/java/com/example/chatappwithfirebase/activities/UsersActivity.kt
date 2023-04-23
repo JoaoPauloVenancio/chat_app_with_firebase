@@ -1,5 +1,6 @@
 package com.example.chatappwithfirebase.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -10,7 +11,7 @@ import com.example.chatappwithfirebase.utilities.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
-class UsersActivity : AppCompatActivity() {
+class UsersActivity : AppCompatActivity(), UserAdapter.UserListener {
 
     private lateinit var binding: ActivityUsersBinding
     private lateinit var preferenceManager: PreferenceManager
@@ -53,12 +54,13 @@ class UsersActivity : AppCompatActivity() {
                             name = queryDocumentSnapShot.getString(KEY_NAME),
                             email = queryDocumentSnapShot.getString(KEY_EMAIL),
                             image = queryDocumentSnapShot.getString(KEY_IMAGE),
-                            token = queryDocumentSnapShot.getString(KEY_FCM_TOKEN)
+                            token = queryDocumentSnapShot.getString(KEY_FCM_TOKEN),
+                            id = queryDocumentSnapShot.id
                         )
                         users.add(user)
                     }
                     if (users.size > 0) {
-                        val adapter = UserAdapter()
+                        val adapter = UserAdapter(this)
                         adapter.updateList(users)
                         binding.userRecyclerView.adapter = adapter
                         binding.userRecyclerView.isVisible = true
@@ -73,5 +75,12 @@ class UsersActivity : AppCompatActivity() {
 
     private fun loading(isLoading: Boolean) {
         binding.progressBarUsers.isVisible = isLoading
+    }
+
+    override fun onUserClicked(user: User) {
+        val intent = Intent(applicationContext, ChatActivity::class.java)
+        intent.putExtra(KEY_USER, user)
+        startActivity(intent)
+        finish()
     }
 }

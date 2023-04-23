@@ -12,9 +12,13 @@ import com.example.chatappwithfirebase.databinding.ItemContainerUserBinding
 import com.example.chatappwithfirebase.models.User
 
 
-class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(private val listener: UserListener) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     private val userList  = arrayListOf<User>()
+
+    interface UserListener {
+        fun onUserClicked(user: User)
+    }
 
     private fun getUserImage(encodedImage: String): Bitmap {
         val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
@@ -33,6 +37,10 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
                 crossfade(true)
                 transformations(CircleCropTransformation())
             }
+            binding.root.setOnClickListener {
+                listener.onUserClicked(user)
+            }
+
         }
     }
 
