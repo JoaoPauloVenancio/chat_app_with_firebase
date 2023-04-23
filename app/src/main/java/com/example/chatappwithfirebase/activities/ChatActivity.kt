@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
-class ChatActivity : AppCompatActivity() {
+class ChatActivity : BaseActivity() {
 
     private lateinit var binding: ActivityChatBinding
     private lateinit var receiverUser: User
@@ -29,6 +29,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var database: FirebaseFirestore
     private var conversionId: String? = null
+    private var isReceiverAvailable = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +100,24 @@ class ChatActivity : AppCompatActivity() {
         return SimpleDateFormat("MMMM dd, yyyy - hh:mm a", Locale.getDefault()).format(date)
     }
 
+    private fun listenAvailabilityOfReceiver() {
+        database.collection(KEY_COLLECTIONS_USERS).document(receiverUser.id!!)
+            .addSnapshotListener(this@ChatActivity) { value, error ->
+                if (error != null) {
+                    return@addSnapshotListener
+                }
+                if (value != null) {
+                    if (value.getLong(KEY_AVAILABILITY) != null) {
+                        val availability = Objects.requireNonNull(
+                            value.getLong(KEY_AVAILABILITY)
+                        )?.toInt()
+                        isReceiverAvailable = availability == 1
+                    }
+                }
+                binding.textAvailability.isVisible = isReceiverAvailable
+            }
+    }
+
     private fun listenMessages() {
         database.collection(KEY_COLLECTION_CHAT)
             .whereEqualTo(KEY_SENDER_ID, preferenceManager.getString(KEY_USER_ID))
@@ -109,7 +128,6 @@ class ChatActivity : AppCompatActivity() {
             .whereEqualTo(KEY_RECEIVED_ID, preferenceManager.getString(KEY_USER_ID))
             .addSnapshotListener(eventListener)
     }
-
 
     private val eventListener = EventListener<QuerySnapshot> { value, error ->
         if (error != null) {
@@ -191,5 +209,9 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        listenAvailabilityOfReceiver()
+    }
 
 }

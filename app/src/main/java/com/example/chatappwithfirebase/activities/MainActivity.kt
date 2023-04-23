@@ -18,7 +18,7 @@ import com.google.firebase.firestore.*
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.Collections
 
-class MainActivity : AppCompatActivity(), RecentConversationsAdapter.RecentConversationListener {
+class MainActivity : BaseActivity(), RecentConversationsAdapter.RecentConversationListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var preferenceManager: PreferenceManager

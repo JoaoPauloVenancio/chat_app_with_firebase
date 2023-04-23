@@ -11,7 +11,7 @@ import com.example.chatappwithfirebase.utilities.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
-class UsersActivity : AppCompatActivity(), UserAdapter.UserListener {
+class UsersActivity : BaseActivity(), UserAdapter.UserListener {
 
     private lateinit var binding: ActivityUsersBinding
     private lateinit var preferenceManager: PreferenceManager
